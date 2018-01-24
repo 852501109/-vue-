@@ -1,0 +1,50 @@
+原版为https://segmentfault.com/a/1190000009428848  林小新 2017年05月15日发布  感谢分享
+
+
+[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特性，或者能否把属性修改为数据属性。
+[[Enumerable]]：表示能否通过 for-in 循环返回属性。
+[[Get]]：在读取属性时调用的函数。默认值为 undefined。
+[[Set]]：在写入属性时调用的函数。默认值为 undefined。
+
+
+通过以上可以做任何事  这也是vue的封装原理
+
+
+下面是实例 
+var book = {
+  _year: 2004,
+  edition: 1
+};
+
+Object.defineProperty(book, 'year', {
+  get: function() {
+    return this._year;
+  },
+  set: function(newValue) {
+    if (newValue > 2004) {
+      this._year = newValue;
+      this.edition += newValue - 2004;
+    }
+  }
+});
+
+book.year = 2005;
+alert(book.edition);  // 2
+alert(book.year); // 2005
+下面贴出来构造函数模式，工厂模式就不说了有兴趣去这位博客看，因为构造函数常用
+至于觉得有缺点也无可厚非，毕竟实例化的次数过多，不过如果想要改进，那么就按照自己工作需求来择优处理，另外记得大写哦 保证了他的独特性，避免代码过多不好查找，和良好的书写习惯
+ function Person (name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.sayName = function () {
+        alert(this.name)
+    }
+}
+var person1 = new Person("铁蛋", 20, '工头')
+var person2 = new Person("李四", 30, '挖掘机驾驶员')
+
+
+
+
+这篇博客还精准的分析了面向对象的根本用法  访问原博客https://segmentfault.com/a/1190000009428848
